@@ -1,14 +1,29 @@
 .weather-card {
   margin: 1rem 0;
+  padding: 1rem;
   border-radius: 5px;
   display: grid;
   grid-template-rows: auto 1fr auto;
   justify-content: center;
   text-align: center;
-  background-color: #dee1ec;
+  background-color: #fff;
+  color: #48484a;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+
+  &:hover {
+    box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+    background-color: #dee1ec;
+  }
+  &__subheader {
+    color: #7a7a7a;
+  }
 
   &__body {
     display: grid;
     grid-template-columns: auto auto;
+  }
+  &__low {
+    color: #7a7a7a;
   }
 }

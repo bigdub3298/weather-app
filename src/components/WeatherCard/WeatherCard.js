@@ -1,17 +1,29 @@
 import React from "react";
 import "./WeatherCard.scss";
 
-export default function WeatherCard({ weather, day }) {
+export default function WeatherCard({ weather, date }) {
   const dayFromNumber = n => {
-    const dayArray = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    const dayArray = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
     return dayArray[n];
   };
 
   if (weather) {
     return (
       <div className="weather-card">
-        <div className="weather-card_header">
-          <h3 className="weather-card__day">{dayFromNumber(day)}</h3>
+        <div>
+          <h3 className="weather-card__header">
+            {dayFromNumber(date.getDay())}
+          </h3>
+          <h4 className="weather-card__subheader">{`${date.getMonth() +
+            1}-${date.getUTCDate()}`}</h4>
         </div>
         <img
           src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
@@ -19,10 +31,10 @@ export default function WeatherCard({ weather, day }) {
           alt="cloudy"
         />
         <div className="weather-card__body">
-          <div className="weather-card_high">
+          <div className="weather-card__high">
             {Math.round(weather.temp.max)}&deg;
           </div>
-          <div className="weather-card_low">
+          <div className="weather-card__low">
             {Math.round(weather.temp.min)}&deg;
           </div>
         </div>
