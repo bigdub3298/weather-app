@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import openWeather from "api/openWeather";
 
 export default function WeatherDisplay() {
   const [coords, setCoords] = useState(null);
@@ -19,6 +20,21 @@ export default function WeatherDisplay() {
   useEffect(() => {
     getCoords();
   }, []);
+
+  useEffect(() => {
+    if (coords) {
+      openWeather
+        .get("/daily", {
+          params: {
+            lat: coords.lat,
+            lon: coords.lon,
+            units: "imperial",
+            appid: "970beadc4b90b64b0f5c6c58e0d79cc4"
+          }
+        })
+        .then(res => console.log(res.data));
+    }
+  }, [coords]);
 
   const renderContent = () => {
     if (errorMessage) {
