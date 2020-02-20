@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import openWeather from "api/openWeather";
 import WeatherCard from "components/WeatherCard/WeatherCard";
+import "./WeatherDisplay.scss";
 
 require("dotenv").config();
 
@@ -56,9 +57,9 @@ export default function WeatherDisplay() {
       return <div>Error: {errorMessage}</div>;
     } else if (weatherData) {
       return (
-        <div>
-          <h1>{weatherData.city.name}</h1>
-          {renderCards()}
+        <div className="weather-display">
+          <h1 className="weather-display__title">{weatherData.city.name}</h1>
+          <div className="weather-cards">{renderCards()}</div>
         </div>
       );
     } else {
@@ -69,5 +70,5 @@ export default function WeatherDisplay() {
       );
     }
   };
-  return <div className="weather-display">{renderContent()}</div>;
+  return <div className="container">{renderContent()}</div>;
 }

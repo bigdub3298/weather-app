@@ -1,4 +1,5 @@
 import React from "react";
+import "./WeatherCard.scss";
 
 export default function WeatherCard({ weather, day }) {
   const dayFromNumber = n => {
@@ -18,8 +19,12 @@ export default function WeatherCard({ weather, day }) {
           alt="cloudy"
         />
         <div className="weather-card__body">
-          <div className="weather-card_high">{weather.temp.max.toFixed(2)}</div>
-          <div className="weather-card_low">{weather.temp.min.toFixed(2)}</div>
+          <div className="weather-card_high">
+            {Math.round(weather.temp.max)}&deg;
+          </div>
+          <div className="weather-card_low">
+            {Math.round(weather.temp.min)}&deg;
+          </div>
         </div>
       </div>
     );

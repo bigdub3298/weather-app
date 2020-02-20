@@ -1,0 +1,14 @@
+.weather-card {
+  margin: 1rem 0;
+  border-radius: 5px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-content: center;
+  text-align: center;
+  background-color: #dee1ec;
+
+  &__body {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}

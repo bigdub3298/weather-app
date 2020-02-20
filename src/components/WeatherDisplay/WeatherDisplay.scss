@@ -1,0 +1,13 @@
+.container {
+  padding: 0 1rem;
+}
+
+.weather-display {
+  text-align: center;
+}
+
+.weather-cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
