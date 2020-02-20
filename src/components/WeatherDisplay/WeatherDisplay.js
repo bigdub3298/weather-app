@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import openWeather from "api/openWeather";
+import WeatherCard from "components/WeatherCard/WeatherCard";
+
+require("dotenv").config();
 
 export default function WeatherDisplay() {
   const [coords, setCoords] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
 
   const getCoords = () => {
     window.navigator.geolocation.getCurrentPosition(
@@ -28,22 +32,33 @@ export default function WeatherDisplay() {
           params: {
             lat: coords.lat,
             lon: coords.lon,
+            cnt: 6,
             units: "imperial",
-            appid: "970beadc4b90b64b0f5c6c58e0d79cc4"
+            appid: process.env.REACT_APP_API_KEY
           }
         })
-        .then(res => console.log(res.data));
+        .then(res => setWeatherData(res.data));
     }
   }, [coords]);
+
+  const renderCards = () => {
+    let today = new Date().getDay();
+
+    return weatherData.list.map((weather, index) => {
+      const day = (today + index) % 7;
+
+      return <WeatherCard weather={weather} day={day} key={day} />;
+    });
+  };
 
   const renderContent = () => {
     if (errorMessage) {
       return <div>Error: {errorMessage}</div>;
-    } else if (coords) {
+    } else if (weatherData) {
       return (
         <div>
-          <h1>Lat: {coords.lat}</h1>
-          <h1>Lat: {coords.lon}</h1>
+          <h1>{weatherData.city.name}</h1>
+          {renderCards()}
         </div>
       );
     } else {
@@ -54,6 +69,5 @@ export default function WeatherDisplay() {
       );
     }
   };
-
   return <div className="weather-display">{renderContent()}</div>;
 }
