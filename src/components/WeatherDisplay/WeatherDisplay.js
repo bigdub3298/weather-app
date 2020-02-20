@@ -33,7 +33,6 @@ export default function WeatherDisplay() {
           params: {
             lat: coords.lat,
             lon: coords.lon,
-            cnt: 6,
             units: "imperial",
             appid: process.env.REACT_APP_API_KEY
           }
@@ -43,32 +42,45 @@ export default function WeatherDisplay() {
   }, [coords]);
 
   const renderCards = () => {
-    let today = new Date().getDay();
+    let today = new Date();
 
     return weatherData.list.map((weather, index) => {
-      const day = (today + index) % 7;
+      const date = index === 0 ? today : today.setDate(today.getDate() + 1);
 
-      return <WeatherCard weather={weather} day={day} key={day} />;
+      return <WeatherCard weather={weather} date={new Date(date)} key={date} />;
     });
   };
 
   const renderContent = () => {
     if (errorMessage) {
-      return <div>Error: {errorMessage}</div>;
+      console.log(`Error:`, errorMessage);
+      return (
+        <div className="loader">
+          <div className="loader__content">
+            <h1>Please allow location</h1>
+          </div>
+        </div>
+      );
     } else if (weatherData) {
       return (
-        <div className="weather-display">
-          <h1 className="weather-display__title">{weatherData.city.name}</h1>
-          <div className="weather-cards">{renderCards()}</div>
+        <div className="container">
+          <div className="weather-display">
+            <h1 className="weather-display__title">{weatherData.city.name}</h1>
+            <div className="weather-cards">{renderCards()}</div>
+          </div>
         </div>
       );
     } else {
       return (
         <div className="loader">
-          <div className="loader__content">Loading...</div>
+          <div className="loader__content">
+            <h1>Loading...</h1>
+            <br />
+            <h3>Waiting to get user's location</h3>
+          </div>
         </div>
       );
     }
   };
-  return <div className="container">{renderContent()}</div>;
+  return <div>{renderContent()}</div>;
 }
