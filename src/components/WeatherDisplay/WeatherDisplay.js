@@ -23,22 +23,26 @@ export default function WeatherDisplay() {
     );
   };
 
+  const getWeatherData = coords => {
+    openWeather
+      .get("/daily", {
+        params: {
+          lat: coords.lat,
+          lon: coords.lon,
+          units: "imperial",
+          appid: process.env.REACT_APP_API_KEY
+        }
+      })
+      .then(res => setWeatherData(res.data));
+  };
+
   useEffect(() => {
     getCoords();
   }, []);
 
   useEffect(() => {
     if (coords) {
-      openWeather
-        .get("/daily", {
-          params: {
-            lat: coords.lat,
-            lon: coords.lon,
-            units: "imperial",
-            appid: process.env.REACT_APP_API_KEY
-          }
-        })
-        .then(res => setWeatherData(res.data));
+      getWeatherData(coords);
     }
   }, [coords]);
 
