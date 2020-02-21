@@ -37,7 +37,7 @@ export default function WeatherCard({
             1}-${date.getUTCDate()}`}</h4>
         </div>
         <img
-          src={`http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+          src={require(`icons/${weather.weather[0].icon}.png`)}
           className="weather-card__image"
           alt="cloudy"
         />
