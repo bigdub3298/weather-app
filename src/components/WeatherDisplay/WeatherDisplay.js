@@ -9,6 +9,7 @@ export default function WeatherDisplay() {
   const [coords, setCoords] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [weatherData, setWeatherData] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(0);
 
   const getCoords = () => {
     window.navigator.geolocation.getCurrentPosition(
@@ -47,7 +48,16 @@ export default function WeatherDisplay() {
     return weatherData.list.map((weather, index) => {
       const date = index === 0 ? today : today.setDate(today.getDate() + 1);
 
-      return <WeatherCard weather={weather} date={new Date(date)} key={date} />;
+      return (
+        <WeatherCard
+          selectedDay={selectedDay}
+          onClick={() => setSelectedDay(index)}
+          weather={weather}
+          date={new Date(date)}
+          key={index}
+          index={index}
+        />
+      );
     });
   };
 

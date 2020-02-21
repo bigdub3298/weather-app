@@ -1,7 +1,13 @@
 import React from "react";
 import "./WeatherCard.scss";
 
-export default function WeatherCard({ weather, date }) {
+export default function WeatherCard({
+  weather,
+  date,
+  onClick,
+  selectedDay,
+  index
+}) {
   const dayFromNumber = n => {
     const dayArray = [
       "Sunday",
@@ -17,7 +23,12 @@ export default function WeatherCard({ weather, date }) {
 
   if (weather) {
     return (
-      <div className="weather-card">
+      <div
+        onClick={onClick}
+        className={
+          index === selectedDay ? "weather-card selected" : "weather-card"
+        }
+      >
         <div>
           <h3 className="weather-card__header">
             {dayFromNumber(date.getDay())}
