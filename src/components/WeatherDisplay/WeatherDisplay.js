@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import openWeather from "api/openWeather";
 import WeatherCard from "components/WeatherCard/WeatherCard";
+import WeatherDetail from "components/WeatherDetail/WeatherDetail";
 import "./WeatherDisplay.scss";
 
 require("dotenv").config();
@@ -81,6 +82,7 @@ export default function WeatherDisplay() {
           <div className="weather-display">
             <h1 className="weather-display__title">{weatherData.city.name}</h1>
             <div className="weather-cards">{renderCards()}</div>
+            <WeatherDetail weather={weatherData.list[selectedDay]} />
           </div>
         </div>
       );
@@ -96,5 +98,5 @@ export default function WeatherDisplay() {
       );
     }
   };
-  return <div>{renderContent()}</div>;
+  return <>{renderContent()}</>;
 }
