@@ -9,15 +9,7 @@ export default function WeatherCard({
   index
 }) {
   const dayFromNumber = n => {
-    const dayArray = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
+    const dayArray = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
     return dayArray[n];
   };
 
@@ -38,8 +30,7 @@ export default function WeatherCard({
         </div>
         <img
           src={require(`icons/${weather.weather[0].icon}.png`)}
-          className="weather-card__image"
-          alt="cloudy"
+          alt={weather.weather[0].main}
         />
         <div className="weather-card__body">
           <div className="weather-card__high">

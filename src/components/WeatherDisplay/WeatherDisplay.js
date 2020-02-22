@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import openWeather from "api/openWeather";
 import WeatherCard from "components/WeatherCard/WeatherCard";
 import WeatherDetail from "components/WeatherDetail/WeatherDetail";
@@ -11,6 +11,7 @@ export default function WeatherDisplay() {
   const [errorMessage, setErrorMessage] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [selectedDay, setSelectedDay] = useState(0);
+  const dateRef = useRef(new Date());
 
   const getCoords = () => {
     window.navigator.geolocation.getCurrentPosition(
@@ -56,7 +57,10 @@ export default function WeatherDisplay() {
       return (
         <WeatherCard
           selectedDay={selectedDay}
-          onClick={() => setSelectedDay(index)}
+          onClick={() => {
+            dateRef.current = new Date(date);
+            setSelectedDay(index);
+          }}
           weather={weather}
           date={new Date(date)}
           key={index}
@@ -82,7 +86,10 @@ export default function WeatherDisplay() {
           <div className="weather-display">
             <h1 className="weather-display__title">{weatherData.city.name}</h1>
             <div className="weather-cards">{renderCards()}</div>
-            <WeatherDetail weather={weatherData.list[selectedDay]} />
+            <WeatherDetail
+              weather={weatherData.list[selectedDay]}
+              date={dateRef.current}
+            />
           </div>
         </div>
       );
