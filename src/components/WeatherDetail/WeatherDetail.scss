@@ -1,0 +1,25 @@
+.weather-detail {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  justify-content: center;
+  text-align: center;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #48484a;
+  width: 33%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  img {
+    margin: auto;
+  }
+
+  &__subheader {
+    color: #7a7a7a;
+  }
+
+  &__currTemp {
+    font-size: 4rem;
+  }
+}
