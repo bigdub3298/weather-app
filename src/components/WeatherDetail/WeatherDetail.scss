@@ -15,11 +15,16 @@
     margin: auto;
   }
 
+  &__body-secondary {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__subheader {
     color: #7a7a7a;
   }
 
   &__currTemp {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 }

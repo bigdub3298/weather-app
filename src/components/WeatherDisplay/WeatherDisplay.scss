@@ -7,7 +7,7 @@
 .weather-display {
   text-align: center;
   display: grid;
-  grid-template-rows: auto auto auto auto;
+  grid-template-rows: auto;
   justify-content: center;
 
   &__search-bar {
