@@ -2,12 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import openWeather from "api/openWeather";
 import WeatherCard from "components/WeatherCard/WeatherCard";
 import WeatherDetail from "components/WeatherDetail/WeatherDetail";
+import Autocomplete from "react-google-autocomplete";
 import "./WeatherDisplay.scss";
 
 require("dotenv").config();
 
+const searchBarStyles = {
+  width: "70%",
+  marginBottom: "0.5rem",
+  borderRadius: "2px",
+  padding: "5px",
+  border: "1px solid #eee"
+};
+
 export default function WeatherDisplay() {
   const [coords, setCoords] = useState(null);
+  const [city, setCity] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [selectedDay, setSelectedDay] = useState(0);
@@ -35,7 +45,10 @@ export default function WeatherDisplay() {
           appid: process.env.REACT_APP_API_KEY
         }
       })
-      .then(res => setWeatherData(res.data));
+      .then(res => {
+        setWeatherData(res.data);
+        setCity(res.data.city.name);
+      });
   };
 
   useEffect(() => {
@@ -84,7 +97,19 @@ export default function WeatherDisplay() {
       return (
         <div className="container">
           <div className="weather-display">
-            <h1 className="weather-display__title">{weatherData.city.name}</h1>
+            <div className="weather-display__search-bar">
+              <Autocomplete
+                style={searchBarStyles}
+                onPlaceSelected={place => {
+                  console.log(place);
+                  const lat = place.geometry.location.lat();
+                  const lon = place.geometry.location.lng();
+                  setCoords({ lat, lon });
+                  setCity(place.address_components[0].long_name);
+                }}
+              />
+            </div>
+            <h1 className="weather-display__title">{city}</h1>
             <div className="weather-cards">{renderCards()}</div>
             <WeatherDetail
               weather={weatherData.list[selectedDay]}
