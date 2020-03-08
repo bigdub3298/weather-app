@@ -2,5 +2,5 @@ import axios from "axios";
 
 export default axios.create({
   baseURL:
-    " https://crossorigin.me/http://api.openweathermap.org/data/2.5/forecast"
+    "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast"
 });
