@@ -1,5 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://api.openweathermap.org/data/2.5/forecast"
+  baseURL:
+    " https://crossorigin.me/http://api.openweathermap.org/data/2.5/forecast"
 });
